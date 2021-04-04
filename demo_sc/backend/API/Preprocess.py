@@ -30,7 +30,7 @@ def _processTweet(tweet):
         newTweet = re.sub(r"\'t", " not", newTweet)
         newTweet = re.sub(r"\'ve", " have", newTweet)
         newTweet = re.sub(r"\'m", " am", newTweet)
-        # newTweet = ' '.join([word for word in newTweet.split() if word not in (_stopWords)])
+        newTweet = ' '.join([word for word in newTweet.split() if word not in (_stopWords)])
         return newTweet
 
 def processTweets(list_of_tweets):

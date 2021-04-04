@@ -14,7 +14,7 @@ from sklearn import preprocessing
 import random
 from nltk.corpus import stopwords
 import tweepy
-import Conenct as connect
+from API import Connect as connect
 
 
 stop_words = set(stopwords.words('english'))
@@ -44,7 +44,8 @@ def creatingTestSet(searched_keyword):
         #    if i not in res:
         #        res.append(i)  
         # print("Found "+str(len(res)))
-        for tweet_info in tweepy.Cursor(api.search, q=searched_keyword, tweet_mode='extended',result_type = "mixed").items(50):
+        for tweet_info in tweepy.Cursor(api.search, q=searched_keyword,rpp=50,lang="en", tweet_mode='extended').items(50):
+          print(tweet_info)
           if 'retweeted_status' in dir(tweet_info):
                tweet=tweet_info.retweeted_status.full_text
           else:

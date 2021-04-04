@@ -5,13 +5,11 @@ from API import Preprocess
 from API import SA 
 from flask_cors import CORS, cross_origin
 app = Flask(__name__)
-app.config['CORS_HEADERS'] = 'Content-Type'
-cors = CORS(app)
+
 
 @app.route('/result', methods = ['POST'])
-@cross_origin()
 def result():
-  keyword = request.data
+  keyword = request.json['keyword']
   print(keyword)
   newSet=APIcall.creatingTestSet(keyword)
   print(newSet)
