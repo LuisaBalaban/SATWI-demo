@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap');
+body {
+  margin: 0;
+  background: #EFEFF4;
+  min-height: 1500px;
+}
+input
+{
+  position: absolute;
+  top: 50%;
+  left: 35%;
+width:400px;
+height: 34px;
+
+background: #FFFFFF;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 46px;
+}
+button
+{
+  position: absolute;
+width: 45px;
+top: 50%;
+left: 65%;
+height: 43px;
+
+background: #C0BFE1;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 25px;
+}
+h1{
+  position: absolute;
+  top: 35%;
+  left: 35%;
+
+font-family: Reem Kufi;
+font-style: normal;
+font-weight: normal;
+font-size: 70px;
+line-height: 54px;
+
+color: #000000;
+}
