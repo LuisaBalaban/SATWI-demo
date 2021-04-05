@@ -1,19 +1,23 @@
 import React from 'react';
 import './index.css';
 
+
 class App extends React.Component {
   constructor(){
     super();
     this.state={
       labeledTweets:'',
-      keyword:''
+      keyword:'',
+      keys:''
     }
     this.handleChange = this.handleChange.bind(this);
     this.search = this.search.bind(this)
+    this.graphics = this.graphics.bind(this)
   }
   handleChange(event) {
     const { name, value } = event.target
     this.setState({ [name]: value })
+    
 
 }
   search() {
@@ -34,19 +38,34 @@ class App extends React.Component {
 })
 .then(json => {
 console.log(json)
-this.setState({labeledTweets: JSON.stringify(json)})
+this.setState({labeledTweets: json})
+window.scrollTo(50, 0)
 })
   }
+graphics(){
+  
+}
   render(){
+    this.state.keys = Object.keys(this.state.labeledTweets);
+    console.log(this.state.keys)
+    
   return (
-    <div className="App">
+    <div align="center" className="box">
       <header className="App-header">
-       <h1>Search a company</h1>
-      <div>
-          <input type="text" id="entry-point" lassName="input" type="text" id="description" name="keyword" value={this.state.keyword} onChange={this.handleChange}/>
-          <button onClick={this.search}> Go </button>
-          <p>{this.state.labeledTweets}</p>
-        </div>
+       <h2>Search a company</h2>
+      <form>
+          <input type="text" id="entry-point" className="input" type="text" id="description" name="keyword" value={this.state.keyword} onChange={this.handleChange}/>
+          <button type="submit" onClick={this.search}> Go </button>
+        </form>
+        <ul onChange={this.graphics}>
+      {
+        Object.keys(this.state.labeledTweets).map((key, index) => (
+          <li key={index}>{key}:<b>{this.state.labeledTweets[key]}</b></li> 
+          
+        ))
+      }
+    </ul>
+    
       </header>
     </div>
   );

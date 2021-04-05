@@ -24,26 +24,9 @@ auth.set_access_token(connect.access_token_key, connect.access_token_secret)
 
 api = tweepy.API(auth)
 
-# twitter_api=twitter.Api(consumer_key=connect.consumer_key,
-#                         consumer_secret=connect.consumer_secret,
-#                         access_token_key=connect.access_token_key,
-#                        access_token_secret=connect.access_token_secret)
 def creatingTestSet(searched_keyword):
     try:
         res = []
-        # found_tweets=twitter_api.GetSearch(searched_keyword,count=20, lang="en")
-        # for tweet in tweepy.Cursor(api.search,
-        #                    q=searched_keyword,
-        #                    rpp=50,
-        #                    result_type="mixed",
-        #                    lang="en").items():
-        #                    res.append(tweet)  
-
-        # found_tweets=api.search(q=searched_keyword,tweet_mode='extended')
-        # for i in found_tweets:
-        #    if i not in res:
-        #        res.append(i)  
-        # print("Found "+str(len(res)))
         for tweet_info in tweepy.Cursor(api.search, q=searched_keyword,rpp=50,lang="en", tweet_mode='extended').items(50):
           print(tweet_info)
           if 'retweeted_status' in dir(tweet_info):

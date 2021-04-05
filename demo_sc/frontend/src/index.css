@@ -4,11 +4,12 @@ body {
   background: #EFEFF4;
   min-height: 1500px;
 }
+
 input
 {
-  position: absolute;
+  position: fixed;
   top: 50%;
-  left: 35%;
+
 width:400px;
 height: 34px;
 
@@ -21,7 +22,6 @@ button
   position: absolute;
 width: 45px;
 top: 50%;
-left: 65%;
 height: 43px;
 
 background: #C0BFE1;
@@ -31,7 +31,7 @@ border-radius: 25px;
 h1{
   position: absolute;
   top: 35%;
-  left: 35%;
+
 
 font-family: Reem Kufi;
 font-style: normal;
@@ -40,4 +40,48 @@ font-size: 70px;
 line-height: 54px;
 
 color: #000000;
+}
+/* List */
+ul {
+  counter-reset: index;  
+  padding: 0;
+  max-width: 500px;
+  margin-top: 50%;
+}
+/* List element */
+li {
+  counter-increment: index; 
+  font-family: Reem Kufi;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  box-sizing: border-box;
+}
+
+/* Element counter */
+li::before {
+  content: counters(index, ".", decimal-leading-zero);
+  font-size: 1.5rem;
+  text-align: right;
+  font-weight: bold;
+  min-width: 50px;
+  padding-right: 12px;
+  font-variant-numeric: tabular-nums;
+  align-self: flex-start;
+  background-image: linear-gradient(to bottom, rgb(127, 157, 255), rgb(50, 7, 131));
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Element separation */
+li + li {
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+@use postcss-preset-env {
+  stage: 0;
+  autoprefixer: {
+    grid: true;
+  }
+  browsers: last 2 versions
 }
