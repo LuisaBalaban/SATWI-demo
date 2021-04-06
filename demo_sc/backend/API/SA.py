@@ -10,6 +10,8 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras import backend as K
 import tensorflow as tf
 
+results=[]
+df=[]
 def loadModel(preprocessedSearchedTweets):
  model1 = TFBertForSequenceClassification.from_pretrained('results/tokenizer/')
  tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
@@ -19,7 +21,6 @@ def loadModel(preprocessedSearchedTweets):
  labels = ['Negative','Positive']
  label = tf.argmax(tf_predictions, axis=1)
  label = label.numpy()
- results=[]
  labeledTweets={}
  for i in range(len(preprocessedSearchedTweets)):
 #   print(tf_predictions[i][0])
@@ -27,9 +28,16 @@ def loadModel(preprocessedSearchedTweets):
   labeledTweets[preprocessedSearchedTweets[i]]=labels[label[i]];
 #   print(preprocessedSearchedTweets[i], ": ", labels[label[i]])
  df = pd.DataFrame(results, columns=['results'])
-#  wordsInTweets = [tweet.split() for tweet in preprocessedSearchedTweets]
-#  wordsInTweets = list(itertools.chain(*wordsInTweets))
-#  counter = collections.Counter(wordsInTweets)
+ print(df)
+ #polarityToJson(df)
  print(labeledTweets)
-#  jsonStr = json.dumps(labeledTweets)
  return labeledTweets
+
+def polarityToJson(polarityValues):
+  out=polarityValues.to_json(orient='records')
+  with open('C:\\Users\\Admin\\Desktop\\an 3\\DemoSC\\demo_sc\\frontend\\src\\polarityValues.json', 'w') as f:
+   f.seek(0) 
+   f.write(out)
+   f.truncate()
+  return 
+  
