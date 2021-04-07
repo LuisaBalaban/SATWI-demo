@@ -27,7 +27,7 @@ api = tweepy.API(auth)
 def creatingTestSet(searched_keyword):
     try:
         res = []
-        for tweet_info in tweepy.Cursor(api.search, q=searched_keyword,rpp=20,lang="en", tweet_mode='extended').items(20):
+        for tweet_info in tweepy.Cursor(api.search, q=searched_keyword,rpp=20, lang="en", tweet_mode='extended').items(20):
           print(tweet_info)
           if 'retweeted_status' in dir(tweet_info):
                tweet=tweet_info.retweeted_status.full_text
