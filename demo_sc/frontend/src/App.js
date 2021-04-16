@@ -2,6 +2,7 @@ import React from 'react';
 import './index.css';
 import './bootstrap.css'
 import Chart from "react-google-charts";
+import Loader from 'react-loader-spinner';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +16,9 @@ class App extends React.Component {
       countNeg: 0,
       polarityValues: [],
       json: '',
-      resultedTweets: []
+      resultedTweets: [],
+      messagesEnd:'',
+      flag:false
     }
     this.handleChange = this.handleChange.bind(this);
     this.search = this.search.bind(this)
@@ -28,6 +31,9 @@ class App extends React.Component {
   }
 
   search(e) {
+    this.setState({
+      flag:true
+    })
     e.preventDefault()
     console.log("making request")
     console.log(this.state.keyword)
@@ -52,12 +58,19 @@ class App extends React.Component {
           labels: Object.values(json.labeledTweets[0]),
           countPoz: (JSON.stringify(Object.values(json.labeledTweets)).match(/Positive/g) || []).length,
           countNeg: (JSON.stringify(Object.values(json.labeledTweets)).match(/Negative/g) || []).length,
-          polarityValues: Object.values(json.results[0])
+          polarityValues: Object.values(json.results[0]),
+          flag:false
 
         })
+        this.scrollToBottom();
 
       })
   }
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+  
+
 
   render() {
 
@@ -67,6 +80,7 @@ class App extends React.Component {
     console.log(this.state.labels)
     console.log(this.state.countPoz)
     console.log(this.state.countNeg)
+    console.log(this.state.loading===1)
     this.state.resultedTweets = this.state.tweets.map(s => ([s]))
     return (
       <div>
@@ -90,7 +104,13 @@ class App extends React.Component {
               </header>
             </div>
           </div>
-
+          <div style={{
+                          width: "100%",
+                          height: "100",
+                          display: "flex", justifyContent: "center", alignItems: "center"
+                        }}    >{this.state.flag ? <Loader type="ThreeDots" color="#FFFFFF" height="100" width="100" /> :'' }
+                          
+                        </div>
           <div class="container">
             <div class="row">
               <div class="col-sm">
@@ -107,8 +127,8 @@ class App extends React.Component {
 
               <div class="col-sm">
                 <Chart
-                  width={'750px'}
-                  height={'500px'}
+                  width={'550px'}
+                  height={'300px'}
                   chartType="PieChart"
                   loader={<div>Loading Chart</div>}
                   data={[
@@ -123,13 +143,15 @@ class App extends React.Component {
                       fillOpacity: 0.8,
                     },
                     fontName: 'Reem Kufi',
-                    fontSize: 25
+                    fontSize: 20
                   }}
                   rootProps={{ 'data-testid': '1' }}
                 />
+                <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.messagesEnd = el; }}></div>
                 <Chart
-                  width={'700px'}
-                  height={'500px'}
+                  width={'500px'}
+                  height={'400px'}
                   chartType="Histogram"
                   loader={<div>Loading Chart</div>}
                   data={[
@@ -141,7 +163,7 @@ class App extends React.Component {
                     backgroundColor: '#dddbf3',
                     legend: { position: 'none' },
                     fontName: 'Reem Kufi',
-                    fontSize: 25,
+                    fontSize: 20,
                     hAxis: {
                       title: 'Positivie <--------------> Negative',
                     
@@ -150,8 +172,8 @@ class App extends React.Component {
                   rootProps={{ 'data-testid': '1' }}
                 />
                 <Chart
-                  width={'700px'}
-                  height={'500px'}
+                  width={'500px'}
+                  height={'400px'}
                   chartType="WordTree"
                   loader={<div>Loading Chart</div>}
                   data={[
